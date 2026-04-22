@@ -1,2 +1,20 @@
 ---
 # handlers file for ctfd
+
+- name: "Normalize plugin directories"
+  listen: "Normalize plugin directories"
+  ansible.builtin.file:
+    path: "/opt/ctfd/CTFd/plugins/{{ item.item.name }}"
+    state: directory
+    owner: "ctfd"
+    group: "ctfd"
+    mode: "0755"
+  loop: "{{ ctfd_plugin_git_results.results | selectattr('changed') | list }}"
+
+- name: "Install plugin requirements"
+  listen: "Install plugin requirements"
+  ansible.builtin.pip:
+    virtualenv: "{{ ctfd_venv_path }}"
+    virtualenv_command: "python3 -m venv"
+    requirements: "/opt/ctfd/CTFd/plugins/{{ item.item.name }}/requirements.txt"
+  loop: "{{ ctfd_plugin_git_results.results | selectattr('changed') | list }}"
