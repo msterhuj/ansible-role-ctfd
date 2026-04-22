@@ -58,7 +58,7 @@
 
 - name: "Create uploads folder"
   ansible.builtin.file:
-    path: "{{ ctfd_uploads_folder }}"
+    path: "{{ ctfd_config.upload_folder }}"
     owner: "ctfd"
     group: "ctfd"
     mode: "0755"
@@ -66,7 +66,7 @@
 
 - name: "Create logs folder"
   ansible.builtin.file:
-    path: "{{ ctfd_logs_folder }}"
+    path: "{{ ctfd_config.log_folder }}"
     owner: "ctfd"
     group: "ctfd"
     mode: "0755"

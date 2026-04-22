@@ -7,46 +7,39 @@ ctfd_plugins:
   - name: "containers"
     repo: https://github.com/MindBreak-ESGI/CTFd-Containers
 
-# SECRET_KEY:
-# The secret value used to creation sessions and sign strings. This should be set to a random string. In the
-# interest of ease, CTFd will automatically create a secret key file for you. If you wish to add this secret key
-# to your instance you should hard code this value to a random static value.
-#
-# You can also remove .ctfd_secret_key from the .gitignore file and commit this file into whatever repository
-# you are using.
-#
-# http://flask.pocoo.org/docs/latest/quickstart/#sessions
-ctfd_secret_key: "{{ undef('please set ctfd_secret_key') }}"
+# CTFd config.ini values
+ctfd_config:
+  secret_key: "{{ undef('please set ctfd_config.secret_key') }}"
+  database_url: ""
+  redis_url: ""
+  mailfrom_addr: ""
+  mail_server: ""
+  mail_port: ""
+  mail_useauth: ""
+  mail_username: ""
+  mail_password: ""
+  mail_tls: ""
+  mail_ssl: ""
+  mailgun_api_key: ""
+  mailgun_base_url: ""
+  log_folder: "/var/log/ctfd"
+  upload_provider: "filesystem"
+  upload_folder: "/opt/ctfd_uploads"
+  aws_access_key_id: ""
+  aws_secret_access_key: ""
+  aws_s3_bucket: ""
+  aws_s3_endpoint_url: ""
+  reverse_proxy: false
+  templates_auto_reload: ""
+  sqlalchemy_track_modifications: ""
+  swagger_ui: ""
+  update_check: true
+  application_root: ""
+  server_sent_events: ""
+  oauth_client_id: ""
+  oauth_client_secret: ""
 
-# DATABASE_URL
-# The URI that specifies the username, password, hostname, port, and database of the server
-# used to hold the CTFd database.
-#
-# If neither this setting nor `DATABASE_HOST` is specified, CTFd will automatically create a SQLite database for you to use
-# e.g. mysql+pymysql://root:<YOUR_PASSWORD_HERE>@localhost/ctfd
-ctfd_db_url: null
-
-# REDIS_URL
-# The URL to connect to a Redis server. If neither this setting nor `REDIS_HOST` is specified,
-# CTFd will use the .data folder as a filesystem cache.
-#
-# e.g. redis://user:password@localhost:6379
-# http://pythonhosted.org/Flask-Caching/#configuring-flask-caching
-ctfd_redis_url: null
-
-# no / at the end for folders
-ctfd_logs_folder: "/var/log/ctfd"
-ctfd_uploads_folder: "/opt/ctfd_uploads"
 ctfd_venv_path: "/opt/ctfd/venv"
 
 ctfd_gunicorn_workers: 3
 ctfd_bind_address: "127.0.0.1:4000"
-ctfd_reverse_proxy: false
-
-# SWAGGER_UI
-# Enable the Swagger UI endpoint at /api/v1/
-ctfd_swagger_ui: null
-
-# UPDATE_CHECK
-# Specifies whether or not CTFd will check whether or not there is a new version of CTFd. Defaults True.
-ctfd_update_check: true
