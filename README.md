@@ -12,10 +12,11 @@ You also need to configure a web server to serve the CTFd application after inst
 Role Variables
 --------------
 
-Variable can be found in `defaults/main.yml` and are as follows: [Click here](meta/argument_specs.yml)
+Variable can be found in `meta/argument_specs.yml` and are as follows: [Click here](meta/argument_specs.yml)
 
 Main CTFd `config.ini` values are now grouped under `ctfd_config`.
 The only mandatory key is `ctfd_config.secret_key`.
+The role merges `ctfd_config` with its internal defaults, so you can override only the keys you need.
 
 Example:
 

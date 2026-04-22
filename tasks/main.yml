@@ -58,19 +58,21 @@
 
 - name: "Create uploads folder"
   ansible.builtin.file:
-    path: "{{ ctfd_config.upload_folder }}"
+    path: "{{ ctfd_config_effective.upload_folder }}"
     owner: "ctfd"
     group: "ctfd"
     mode: "0755"
     state: directory
+  when: ctfd_config_effective.upload_folder | length > 0
 
 - name: "Create logs folder"
   ansible.builtin.file:
-    path: "{{ ctfd_config.log_folder }}"
+    path: "{{ ctfd_config_effective.log_folder }}"
     owner: "ctfd"
     group: "ctfd"
     mode: "0755"
     state: directory
+  when: ctfd_config_effective.log_folder | length > 0
 
 - name: "Install CTFd requirements"
   ansible.builtin.pip:
@@ -85,7 +87,7 @@
     dest: "/opt/ctfd/CTFd/config.ini"
     owner: "ctfd"
     group: "ctfd"
-    mode: "0644"
+    mode: "0600"
 
 - name: "Install plugins"
   ansible.builtin.git:

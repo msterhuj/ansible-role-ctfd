@@ -39,7 +39,7 @@ argument_specs:
         type: dict
         required: true
         description:
-          - CTFd server-level configuration values rendered into 
+          - CTFd server-level configuration values rendered into config.ini.
         options:
           secret_key:
             type: str

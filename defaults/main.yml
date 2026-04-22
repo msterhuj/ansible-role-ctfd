@@ -8,36 +8,7 @@ ctfd_plugins:
     repo: https://github.com/MindBreak-ESGI/CTFd-Containers
 
 # CTFd config.ini values
-ctfd_config:
-  secret_key: "{{ undef('please set ctfd_config.secret_key') }}"
-  database_url: ""
-  redis_url: ""
-  mailfrom_addr: ""
-  mail_server: ""
-  mail_port: ""
-  mail_useauth: ""
-  mail_username: ""
-  mail_password: ""
-  mail_tls: ""
-  mail_ssl: ""
-  mailgun_api_key: ""
-  mailgun_base_url: ""
-  log_folder: "/var/log/ctfd"
-  upload_provider: "filesystem"
-  upload_folder: "/opt/ctfd_uploads"
-  aws_access_key_id: ""
-  aws_secret_access_key: ""
-  aws_s3_bucket: ""
-  aws_s3_endpoint_url: ""
-  reverse_proxy: false
-  templates_auto_reload: ""
-  sqlalchemy_track_modifications: ""
-  swagger_ui: ""
-  update_check: true
-  application_root: ""
-  server_sent_events: ""
-  oauth_client_id: ""
-  oauth_client_secret: ""
+ctfd_config: {}
 
 ctfd_venv_path: "/opt/ctfd/venv"
 

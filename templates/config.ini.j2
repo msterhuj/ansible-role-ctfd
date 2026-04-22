@@ -1,41 +1,41 @@
 {{ ansible_managed | comment }}
 [server]
-SECRET_KEY = {{ ctfd_config.secret_key }}
-DATABASE_URL = {{ ctfd_config.database_url }}
-REDIS_URL = {{ ctfd_config.redis_url }}
+SECRET_KEY = {{ ctfd_config_effective.secret_key }}
+DATABASE_URL = {{ ctfd_config_effective.database_url }}
+REDIS_URL = {{ ctfd_config_effective.redis_url }}
 
 [email]
-MAILFROM_ADDR = {{ ctfd_config.mailfrom_addr }}
-MAIL_SERVER = {{ ctfd_config.mail_server }}
-MAIL_PORT = {{ ctfd_config.mail_port }}
-MAIL_USEAUTH = {{ ctfd_config.mail_useauth }}
-MAIL_USERNAME = {{ ctfd_config.mail_username }}
-MAIL_PASSWORD = {{ ctfd_config.mail_password }}
-MAIL_TLS = {{ ctfd_config.mail_tls }}
-MAIL_SSL = {{ ctfd_config.mail_ssl }}
-MAILGUN_API_KEY = {{ ctfd_config.mailgun_api_key }}
-MAILGUN_BASE_URL = {{ ctfd_config.mailgun_base_url }}
+MAILFROM_ADDR = {{ ctfd_config_effective.mailfrom_addr }}
+MAIL_SERVER = {{ ctfd_config_effective.mail_server }}
+MAIL_PORT = {{ ctfd_config_effective.mail_port }}
+MAIL_USEAUTH = {{ ctfd_config_effective.mail_useauth }}
+MAIL_USERNAME = {{ ctfd_config_effective.mail_username }}
+MAIL_PASSWORD = {{ ctfd_config_effective.mail_password }}
+MAIL_TLS = {{ ctfd_config_effective.mail_tls }}
+MAIL_SSL = {{ ctfd_config_effective.mail_ssl }}
+MAILGUN_API_KEY = {{ ctfd_config_effective.mailgun_api_key }}
+MAILGUN_BASE_URL = {{ ctfd_config_effective.mailgun_base_url }}
 
 [uploads]
-UPLOAD_PROVIDER = {{ ctfd_config.upload_provider }}
-UPLOAD_FOLDER = {{ ctfd_config.upload_folder }}
-AWS_ACCESS_KEY_ID = {{ ctfd_config.aws_access_key_id }}
-AWS_SECRET_ACCESS_KEY = {{ ctfd_config.aws_secret_access_key }}
-AWS_S3_BUCKET = {{ ctfd_config.aws_s3_bucket }}
-AWS_S3_ENDPOINT_URL = {{ ctfd_config.aws_s3_endpoint_url }}
+UPLOAD_PROVIDER = {{ ctfd_config_effective.upload_provider }}
+UPLOAD_FOLDER = {{ ctfd_config_effective.upload_folder }}
+AWS_ACCESS_KEY_ID = {{ ctfd_config_effective.aws_access_key_id }}
+AWS_SECRET_ACCESS_KEY = {{ ctfd_config_effective.aws_secret_access_key }}
+AWS_S3_BUCKET = {{ ctfd_config_effective.aws_s3_bucket }}
+AWS_S3_ENDPOINT_URL = {{ ctfd_config_effective.aws_s3_endpoint_url }}
 
 [logs]
-LOG_FOLDER = {{ ctfd_config.log_folder }}
+LOG_FOLDER = {{ ctfd_config_effective.log_folder }}
 
 [optional]
-REVERSE_PROXY = {{ ctfd_config.reverse_proxy }}
-TEMPLATES_AUTO_RELOAD = {{ ctfd_config.templates_auto_reload }}
-SQLALCHEMY_TRACK_MODIFICATIONS = {{ ctfd_config.sqlalchemy_track_modifications }}
-SWAGGER_UI = {{ ctfd_config.swagger_ui }}
-UPDATE_CHECK = {{ ctfd_config.update_check }}
-APPLICATION_ROOT = {{ ctfd_config.application_root }}
-SERVER_SENT_EVENTS = {{ ctfd_config.server_sent_events }}
+REVERSE_PROXY = {{ ctfd_config_effective.reverse_proxy }}
+TEMPLATES_AUTO_RELOAD = {{ ctfd_config_effective.templates_auto_reload }}
+SQLALCHEMY_TRACK_MODIFICATIONS = {{ ctfd_config_effective.sqlalchemy_track_modifications }}
+SWAGGER_UI = {{ ctfd_config_effective.swagger_ui }}
+UPDATE_CHECK = {{ ctfd_config_effective.update_check }}
+APPLICATION_ROOT = {{ ctfd_config_effective.application_root }}
+SERVER_SENT_EVENTS = {{ ctfd_config_effective.server_sent_events }}
 
 [oauth]
-OAUTH_CLIENT_ID = {{ ctfd_config.oauth_client_id }}
-OAUTH_CLIENT_SECRET = {{ ctfd_config.oauth_client_secret }}
+OAUTH_CLIENT_ID = {{ ctfd_config_effective.oauth_client_id }}
+OAUTH_CLIENT_SECRET = {{ ctfd_config_effective.oauth_client_secret }}
