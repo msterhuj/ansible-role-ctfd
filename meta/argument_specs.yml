@@ -7,7 +7,7 @@ argument_specs:
     options:
       ctfd_version:
         type: str
-        default: "3.7.6"
+        default: "3.8.4"
       ctfd_download_url:
         type: str
         default: "https://github.com/CTFd/CTFd/archive/refs/tags/{{ ctfd_version }}.zip"

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "packageRules": [
+    {
+      "matchManagers": ["pip_requirements"],
+      "matchFileNames": ["requirements-dev.txt"],
+      "groupName": "python dev dependencies"
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/)defaults/main\\.yml$"],
+      "matchStrings": ["ctfd_version:\\s*\"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "CTFd/CTFd",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/)meta/argument_specs\\.yml$"],
+      "matchStrings": ["ctfd_version:\\n[\\s\\S]*?default:\\s*\"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "CTFd/CTFd",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
+    }
+  ]
+}

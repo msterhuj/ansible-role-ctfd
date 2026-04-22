@@ -1,14 +1,31 @@
+from pathlib import Path
+import re
+
 import pytest
 
 
 CTFD_USER = "ctfd"
 CTFD_GROUP = "ctfd"
 CTFD_HOME = "/opt/ctfd"
-CTFD_VERSION = "/opt/CTFd-3.8.4"
 CTFD_VENV = "/opt/ctfd/venv"
 CTFD_CONFIG = "/opt/ctfd/CTFd/config.ini"
 CTFD_SERVICE = "/etc/systemd/system/ctfd.service"
 CTFD_PLUGIN = "/opt/ctfd/CTFd/plugins/containers"
+
+
+def _get_ctfd_version() -> str:
+    defaults_main = Path(__file__).resolve().parents[3] / "defaults" / "main.yml"
+    match = re.search(
+        r'^ctfd_version:\s*"(?P<version>[^\"]+)"\s*$',
+        defaults_main.read_text(encoding="utf-8"),
+        re.MULTILINE,
+    )
+    if match is None:
+        raise AssertionError("ctfd_version not found in defaults/main.yml")
+    return match.group("version")
+
+
+CTFD_VERSION = f"/opt/CTFd-{_get_ctfd_version()}"
 
 
 @pytest.mark.parametrize(
