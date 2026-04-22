@@ -80,6 +80,7 @@
     virtualenv_command: "python3 -m venv"
     requirements: "/opt/ctfd/requirements.txt"
     umask: "0022"
+  when: not ctfd_installed.stat.exists
 
 - name: "Push config.ini"
   ansible.builtin.template:
@@ -95,22 +96,37 @@
     dest: "/opt/ctfd/CTFd/plugins/{{ item.name }}"
     version: "{{ item.version | default('HEAD') }}"
     update: true
+  register: ctfd_plugin_git_results
+  become: true
+  become_user: "ctfd"
   loop: "{{ ctfd_plugins }}"
+
+- name: Ensure CTFd containers plugin directory permissions
+  ansible.builtin.file:
+    path: "/opt/ctfd/CTFd/plugins/{{ item.item.name }}"
+    state: directory
+    owner: ctfd
+    group: ctfd
+    mode: "0755"
+  loop: "{{ ctfd_plugin_git_results.results }}"
+  when: item.changed
 
 - name: "Change owner of plugins to CTFd"
   ansible.builtin.file:
-    path: "/opt/ctfd/CTFd/plugins/{{ item.name }}"
+    path: "/opt/ctfd/CTFd/plugins/{{ item.item.name }}"
     owner: "ctfd"
     group: "ctfd"
     recurse: true
-  loop: "{{ ctfd_plugins }}"
+  loop: "{{ ctfd_plugin_git_results.results }}"
+  when: item.changed
 
 - name: "Install requirements of plugins"
   ansible.builtin.pip:
     virtualenv: "{{ ctfd_venv_path }}"
     virtualenv_command: "python3 -m venv"
-    requirements: "/opt/ctfd/CTFd/plugins/{{ item.name }}/requirements.txt"
-  loop: "{{ ctfd_plugins }}"
+    requirements: "/opt/ctfd/CTFd/plugins/{{ item.item.name }}/requirements.txt"
+  loop: "{{ ctfd_plugin_git_results.results }}"
+  when: item.changed
 
 - name: "Migrate DB"
   ansible.builtin.command: "{{ ctfd_venv_path }}/bin/python3 manage.py db upgrade"
