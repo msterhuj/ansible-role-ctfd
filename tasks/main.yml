@@ -97,6 +97,14 @@
     update: true
   loop: "{{ ctfd_plugins }}"
 
+- name: "Change owner of plugins to CTFd"
+  ansible.builtin.file:
+    path: "/opt/ctfd/CTFd/plugins/{{ item.name }}"
+    owner: "ctfd"
+    group: "ctfd"
+    recurse: true
+  loop: "{{ ctfd_plugins }}"
+
 - name: "Install requirements of plugins"
   ansible.builtin.pip:
     virtualenv: "{{ ctfd_venv_path }}"
