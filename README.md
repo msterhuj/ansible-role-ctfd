@@ -3,6 +3,17 @@ CTFD
 
 Install and configure CTFd app
 
+Development
+-----------
+
+To run linting and Molecule locally, use a Python virtual environment:
+
+  python3 -m venv .venv
+  . .venv/bin/activate
+  pip install --upgrade pip
+  pip install -r requirements-dev.txt
+  molecule test
+
 Requirements
 ------------
 
