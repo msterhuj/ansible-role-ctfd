@@ -4,9 +4,6 @@
   vars:
     ctfd_config:
       secret_key: "secret_key_molecule"
-      database_url: "sqlite:////opt/CTFd/CTFd.db"
-      redis_url: "redis://localhost:6379"
-      log_folder: "/var/log/CTFd"
     ctfd_bind_address: "0.0.0.0:4000"
   roles:
     - role: msterhuj.ctfd

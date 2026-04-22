@@ -1,41 +1,91 @@
 {{ ansible_managed | comment }}
+
+# default config source https://github.com/CTFd/CTFd/blob/master/CTFd/config.ini
+# default config ref https://docs.ctfd.io/docs/deployment/configuration/
+
 [server]
-SECRET_KEY = {{ ctfd_config_effective.secret_key }}
-DATABASE_URL = {{ ctfd_config_effective.database_url }}
-REDIS_URL = {{ ctfd_config_effective.redis_url }}
+SECRET_KEY={{ ctfd_config_effective.secret_key }}
+
+DATABASE_URL={{ ctfd_config_effective.database_url }}
+DATABASE_HOST =
+DATABASE_PROTOCOL =
+DATABASE_USER =
+DATABASE_PASSWORD =
+DATABASE_PORT =
+DATABASE_NAME =
+
+REDIS_URL={{ ctfd_config_effective.redis_url }}
+REDIS_HOST =
+REDIS_PROTOCOL =
+REDIS_USER =
+REDIS_PASSWORD =
+REDIS_PORT =
+REDIS_DB =
+
+[security]
+TRUSTED_HOSTS =
+SESSION_COOKIE_HTTPONLY = true
+SESSION_COOKIE_SAMESITE = Lax
+PERMANENT_SESSION_LIFETIME = 604800
+CROSS_ORIGIN_OPENER_POLICY =
 
 [email]
-MAILFROM_ADDR = {{ ctfd_config_effective.mailfrom_addr }}
-MAIL_SERVER = {{ ctfd_config_effective.mail_server }}
-MAIL_PORT = {{ ctfd_config_effective.mail_port }}
-MAIL_USEAUTH = {{ ctfd_config_effective.mail_useauth }}
-MAIL_USERNAME = {{ ctfd_config_effective.mail_username }}
-MAIL_PASSWORD = {{ ctfd_config_effective.mail_password }}
-MAIL_TLS = {{ ctfd_config_effective.mail_tls }}
-MAIL_SSL = {{ ctfd_config_effective.mail_ssl }}
-MAILGUN_API_KEY = {{ ctfd_config_effective.mailgun_api_key }}
-MAILGUN_BASE_URL = {{ ctfd_config_effective.mailgun_base_url }}
+MAILFROM_ADDR={{ ctfd_config_effective.mailfrom_addr }}
+MAIL_SERVER={{ ctfd_config_effective.mail_server }}
+MAIL_PORT={{ ctfd_config_effective.mail_port }}
+MAIL_USEAUTH={{ ctfd_config_effective.mail_useauth }}
+MAIL_USERNAME={{ ctfd_config_effective.mail_username }}
+MAIL_PASSWORD={{ ctfd_config_effective.mail_password }}
+MAIL_TLS={{ ctfd_config_effective.mail_tls }}
+MAIL_SSL={{ ctfd_config_effective.mail_ssl }}
+MAILGUN_API_KEY={{ ctfd_config_effective.mailgun_api_key }}
+MAILGUN_BASE_URL={{ ctfd_config_effective.mailgun_base_url }}
+MAILSENDER_ADDR =
+MAIL_PROVIDER =
 
 [uploads]
-UPLOAD_PROVIDER = {{ ctfd_config_effective.upload_provider }}
-UPLOAD_FOLDER = {{ ctfd_config_effective.upload_folder }}
-AWS_ACCESS_KEY_ID = {{ ctfd_config_effective.aws_access_key_id }}
-AWS_SECRET_ACCESS_KEY = {{ ctfd_config_effective.aws_secret_access_key }}
-AWS_S3_BUCKET = {{ ctfd_config_effective.aws_s3_bucket }}
-AWS_S3_ENDPOINT_URL = {{ ctfd_config_effective.aws_s3_endpoint_url }}
+UPLOAD_PROVIDER={{ ctfd_config_effective.upload_provider }}
+UPLOAD_FOLDER={{ ctfd_config_effective.upload_folder }}
+AWS_ACCESS_KEY_ID={{ ctfd_config_effective.aws_access_key_id }}
+AWS_SECRET_ACCESS_KEY={{ ctfd_config_effective.aws_secret_access_key }}
+AWS_S3_BUCKET={{ ctfd_config_effective.aws_s3_bucket }}
+AWS_S3_ENDPOINT_URL={{ ctfd_config_effective.aws_s3_endpoint_url }}
+
+AWS_S3_REGION =
+AWS_S3_ADDRESSING_STYLE =
+AWS_S3_CUSTOM_DOMAIN =
+AWS_S3_CUSTOM_PREFIX =
 
 [logs]
-LOG_FOLDER = {{ ctfd_config_effective.log_folder }}
+LOG_FOLDER={{ ctfd_config_effective.log_folder }}
 
 [optional]
-REVERSE_PROXY = {{ ctfd_config_effective.reverse_proxy }}
-TEMPLATES_AUTO_RELOAD = {{ ctfd_config_effective.templates_auto_reload }}
-SQLALCHEMY_TRACK_MODIFICATIONS = {{ ctfd_config_effective.sqlalchemy_track_modifications }}
-SWAGGER_UI = {{ ctfd_config_effective.swagger_ui }}
-UPDATE_CHECK = {{ ctfd_config_effective.update_check }}
-APPLICATION_ROOT = {{ ctfd_config_effective.application_root }}
-SERVER_SENT_EVENTS = {{ ctfd_config_effective.server_sent_events }}
+REVERSE_PROXY={{ ctfd_config_effective.reverse_proxy }}
+THEME_FALLBACK =
+TEMPLATES_AUTO_RELOAD={{ ctfd_config_effective.templates_auto_reload }}
+SQLALCHEMY_TRACK_MODIFICATIONS={{ ctfd_config_effective.sqlalchemy_track_modifications }}
+SWAGGER_UI={{ ctfd_config_effective.swagger_ui }}
+UPDATE_CHECK={{ ctfd_config_effective.update_check }}
+APPLICATION_ROOT={{ ctfd_config_effective.application_root }}
+RUN_ID =
+SERVER_SENT_EVENTS={{ ctfd_config_effective.server_sent_events }}
+
+HTML_SANITIZATION =
+SQLALCHEMY_MAX_OVERFLOW =
+SQLALCHEMY_POOL_PRE_PING =
+EMAIL_CONFIRMATION_REQUIRE_INTERACTION =
+EXTRA_CONFIGS_FORCE_TYPES =
+SAFE_MODE =
+
+[management]
+PRESET_ADMIN_NAME =
+PRESET_ADMIN_EMAIL =
+PRESET_ADMIN_PASSWORD =
+PRESET_ADMIN_TOKEN =
+PRESET_CONFIGS =
 
 [oauth]
-OAUTH_CLIENT_ID = {{ ctfd_config_effective.oauth_client_id }}
-OAUTH_CLIENT_SECRET = {{ ctfd_config_effective.oauth_client_secret }}
+OAUTH_CLIENT_ID={{ ctfd_config_effective.oauth_client_id }}
+OAUTH_CLIENT_SECRET={{ ctfd_config_effective.oauth_client_secret }}
+
+[extra]
