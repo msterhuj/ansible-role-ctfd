@@ -90,6 +90,14 @@
     group: "ctfd"
     mode: "0600"
 
+- name: "Ensure plugins directory is owned by ctfd"
+  ansible.builtin.file:
+    path: "/opt/ctfd/CTFd/plugins"
+    state: directory
+    owner: "ctfd"
+    group: "ctfd"
+    mode: "0755"
+
 - name: "Install plugins"
   ansible.builtin.git:
     repo: "{{ item.repo }}"
