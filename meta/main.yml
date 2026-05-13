@@ -1,11 +1,11 @@
 galaxy_info:
   author: msterhuj
   namespace: msterhuj
-  description: Install CTFd app
+  description: Deploy and configure CTFd — a fully featured Capture The Flag platform — as a production-ready systemd service backed by Gunicorn
   role_name: ctfd
   issue_tracker_url: https://github.com/msterhuj/ansible-role-ctfd/issues
   license: GPL-3.0-only
-  min_ansible_version: "2.1"
+  min_ansible_version: "2.15"
 
   platforms:
     - name: Ubuntu
