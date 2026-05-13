@@ -58,19 +58,21 @@
 
 - name: "Create uploads folder"
   ansible.builtin.file:
-    path: "{{ ctfd_uploads_folder }}"
+    path: "{{ ctfd_config_effective.upload_folder }}"
     owner: "ctfd"
     group: "ctfd"
     mode: "0755"
     state: directory
+  when: ctfd_config_effective.upload_folder | length > 0
 
 - name: "Create logs folder"
   ansible.builtin.file:
-    path: "{{ ctfd_logs_folder }}"
+    path: "{{ ctfd_config_effective.log_folder }}"
     owner: "ctfd"
     group: "ctfd"
     mode: "0755"
     state: directory
+  when: ctfd_config_effective.log_folder | length > 0
 
 - name: "Install CTFd requirements"
   ansible.builtin.pip:
@@ -78,6 +80,7 @@
     virtualenv_command: "python3 -m venv"
     requirements: "/opt/ctfd/requirements.txt"
     umask: "0022"
+  when: not ctfd_installed.stat.exists
 
 - name: "Push config.ini"
   ansible.builtin.template:
@@ -85,7 +88,15 @@
     dest: "/opt/ctfd/CTFd/config.ini"
     owner: "ctfd"
     group: "ctfd"
-    mode: "0644"
+    mode: "0600"
+
+- name: "Ensure plugins directory is owned by ctfd"
+  ansible.builtin.file:
+    path: "/opt/ctfd/CTFd/plugins"
+    state: directory
+    owner: "ctfd"
+    group: "ctfd"
+    mode: "0755"
 
 - name: "Install plugins"
   ansible.builtin.git:
@@ -93,14 +104,16 @@
     dest: "/opt/ctfd/CTFd/plugins/{{ item.name }}"
     version: "{{ item.version | default('HEAD') }}"
     update: true
+  notify:
+    - "Normalize plugin directories"
+    - "Install plugin requirements"
+  register: ctfd_plugin_git_results
+  become: true
+  become_user: "ctfd"
   loop: "{{ ctfd_plugins }}"
 
-- name: "Install requirements of plugins"
-  ansible.builtin.pip:
-    virtualenv: "{{ ctfd_venv_path }}"
-    virtualenv_command: "python3 -m venv"
-    requirements: "/opt/ctfd/CTFd/plugins/{{ item.name }}/requirements.txt"
-  loop: "{{ ctfd_plugins }}"
+- name: "Run plugin handlers now"
+  ansible.builtin.meta: flush_handlers
 
 - name: "Migrate DB"
   ansible.builtin.command: "{{ ctfd_venv_path }}/bin/python3 manage.py db upgrade"

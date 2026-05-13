@@ -1,0 +1,199 @@
+---
+argument_specs:
+  main:
+    short_description: Install and configure CTFd
+    description:
+      - Validate role variables for CTFd installation and config.ini rendering.
+    options:
+      ctfd_version:
+        type: str
+        default: "3.8.4"
+      ctfd_download_url:
+        type: str
+        default: "https://github.com/CTFd/CTFd/archive/refs/tags/{{ ctfd_version }}.zip"
+      ctfd_plugins:
+        type: list
+        elements: dict
+        default:
+          - name: containers
+            repo: https://github.com/MindBreak-ESGI/CTFd-Containers
+        options:
+          name:
+            type: str
+            required: true
+          repo:
+            type: str
+            required: true
+          version:
+            type: str
+      ctfd_venv_path:
+        type: path
+        default: /opt/ctfd/venv
+      ctfd_gunicorn_workers:
+        type: int
+        default: 3
+      ctfd_bind_address:
+        type: str
+        default: 127.0.0.1:4000
+      ctfd_config:
+        type: dict
+        required: true
+        description:
+          - CTFd server-level configuration values rendered into config.ini.
+        options:
+          secret_key:
+            type: str
+            required: true
+            description:
+              - Secret value used to create sessions and sign strings.
+              - Must be set to a random static string.
+          database_url:
+            type: str
+            default: ""
+            description:
+              - Database URI with username, password, host, port and database name.
+              - Example mysql+pymysql://root:<PASSWORD>@localhost/ctfd.
+          redis_url:
+            type: str
+            default: ""
+            description:
+              - Redis URI used by CTFd cache/session features.
+              - Example redis://user:password@localhost:6379.
+          mailfrom_addr:
+            type: str
+            default: ""
+            description:
+              - Sender address used for emails when not overridden in the admin panel.
+          mail_server:
+            type: str
+            default: ""
+            description:
+              - SMTP server hostname used for outgoing email.
+          mail_port:
+            type: raw
+            default: ""
+            description:
+              - SMTP server port used for outgoing email.
+          mail_useauth:
+            type: raw
+            default: ""
+            description:
+              - Whether SMTP authentication with username/password is enabled.
+          mail_username:
+            type: str
+            default: ""
+            description:
+              - SMTP username when mail_useauth is enabled.
+          mail_password:
+            type: str
+            default: ""
+            no_log: true
+            description:
+              - SMTP password when mail_useauth is enabled.
+          mail_tls:
+            type: raw
+            default: ""
+            description:
+              - Whether SMTP connection uses TLS.
+          mail_ssl:
+            type: raw
+            default: ""
+            description:
+              - Whether SMTP connection uses SSL.
+          mailgun_api_key:
+            type: str
+            default: ""
+            no_log: true
+            description:
+              - Mailgun API key (deprecated by CTFd v3; SMTP is recommended).
+          mailgun_base_url:
+            type: str
+            default: ""
+            description:
+              - Mailgun API base URL (deprecated by CTFd v3; SMTP is recommended).
+          log_folder:
+            type: path
+            default: /var/log/ctfd
+            description:
+              - Directory where CTFd writes logs for submissions, registrations and logins.
+          upload_provider:
+            type: str
+            default: filesystem
+            choices:
+              - filesystem
+              - s3
+            description:
+              - Upload backend used by CTFd.
+          upload_folder:
+            type: path
+            default: /opt/ctfd_uploads
+            description:
+              - Directory used by filesystem upload provider.
+          aws_access_key_id:
+            type: str
+            default: ""
+            description:
+              - AWS access key ID used for S3 authentication.
+          aws_secret_access_key:
+            type: str
+            default: ""
+            no_log: true
+            description:
+              - AWS secret access key used for S3 authentication.
+          aws_s3_bucket:
+            type: str
+            default: ""
+            description:
+              - S3 bucket identifier used for uploaded files.
+          aws_s3_endpoint_url:
+            type: str
+            default: ""
+            description:
+              - Optional custom S3-compatible endpoint URL.
+          reverse_proxy:
+            type: raw
+            default: false
+            description:
+              - Whether CTFd runs behind a reverse proxy.
+              - Can be true/false or a comma-separated proxy fix tuple like 1,1,1,1,1.
+          templates_auto_reload:
+            type: raw
+            default: ""
+            description:
+              - Whether Flask reloads templates automatically when they change.
+          sqlalchemy_track_modifications:
+            type: raw
+            default: ""
+            description:
+              - SQLAlchemy modification tracking switch; disabled by default upstream.
+          swagger_ui:
+            type: raw
+            default: ""
+            description:
+              - Enable Swagger UI endpoint at /api/v1/.
+          update_check:
+            type: bool
+            default: true
+            description:
+              - Whether CTFd checks for new available versions.
+          application_root:
+            type: str
+            default: ""
+            description:
+              - URL mount path for CTFd when served under a subpath (example /ctfd).
+          server_sent_events:
+            type: raw
+            default: ""
+            description:
+              - Enable server-sent events based notification system.
+          oauth_client_id:
+            type: str
+            default: ""
+            description:
+              - OAuth client ID used by CTFd OAuth integration.
+          oauth_client_secret:
+            type: str
+            default: ""
+            no_log: true
+            description:
+              - OAuth client secret used by CTFd OAuth integration.

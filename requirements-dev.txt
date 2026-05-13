@@ -1,0 +1,7 @@
+ansible==13.6.0
+ansible-lint==26.4.0
+molecule==26.4.0
+molecule-plugins[docker]==25.8.12
+pytest-testinfra==10.2.2
+
+
